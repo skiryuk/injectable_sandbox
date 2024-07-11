@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:get_it/get_it.dart';
 import 'package:injectable_sandbox/features/home/home_controller.dart';
+import 'package:injectable_sandbox/injection/configure_dependencies.dart';
 import 'package:rx_notifier/rx_notifier.dart';
 
 import '../detail/detail_page.dart';
@@ -13,12 +13,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final HomeController controller = GetIt.instance.get();
+  late final HomeController controller;
+  final String _uid = DateTime.now().microsecondsSinceEpoch.toString();
+
+  String get _scopeName => 'homePage$_uid';
 
   @override
   void dispose() {
-    controller.dispose();
+    getIt.dropScope(_scopeName);
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getIt.pushNewScope(scopeName: _scopeName);
+    controller = getIt.get<HomeController>();
   }
 
   @override
