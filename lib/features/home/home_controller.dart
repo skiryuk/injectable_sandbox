@@ -19,17 +19,18 @@ class HomeController {
   @postConstruct
   void create() {
     _homePageCountState.count++;
-    if (!getIt.isRegistered(
-        instance: SharedState,
+    if (!getIt.isRegistered<SharedState>(
         instanceName: Scopes.homePageIndex(_homePageCountState.count))) {
       getIt.registerLazySingleton(() => SharedState(),
           instanceName: Scopes.homePageIndex(_homePageCountState.count));
     }
-    _sharedState = getIt.get(
+    _sharedState = getIt.get<SharedState>(
         instanceName: Scopes.homePageIndex(_homePageCountState.count));
   }
 
-  void dispose() {
+  void dispose() async {
+    getIt.unregister<SharedState>(
+        instanceName: Scopes.homePageIndex(_homePageCountState.count));
     _homePageCountState.count--;
   }
 
