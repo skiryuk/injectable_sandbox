@@ -29,6 +29,8 @@ class HomeController {
   }
 
   void dispose() async {
+    /// можно закомментировать, если нужно, что бы состояние сохранялось после
+    /// закрытия страницы
     getIt.unregister<SharedState>(
         instanceName: Scopes.homePageIndex(_homePageCountState.count));
     _homePageCountState.count--;
