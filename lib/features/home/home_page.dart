@@ -13,23 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late final HomeController controller;
-  final String _uid = DateTime.now().microsecondsSinceEpoch.toString();
-
-  String get _scopeName => 'homePage$_uid';
-
-  @override
-  void dispose() {
-    getIt.dropScope(_scopeName);
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getIt.pushNewScope(scopeName: _scopeName);
-    controller = getIt.get<HomeController>();
-  }
+  final HomeController controller = getIt.get<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +36,13 @@ class _HomePageState extends State<HomePage> {
                   }),
               CupertinoButton(
                   child: Text('to same home'),
-                  onPressed: () {
-                    Navigator.of(context)
+                  onPressed: () async {
+                    final scopeName =
+                        'homeScope${DateTime.now().microsecondsSinceEpoch}';
+                    getIt.pushNewScope(scopeName: scopeName);
+                    await Navigator.of(context)
                         .push(CupertinoPageRoute(builder: (_) => HomePage()));
+                    getIt.dropScope(scopeName);
                   }),
               CupertinoButton(
                   child: Text('Назад'),
