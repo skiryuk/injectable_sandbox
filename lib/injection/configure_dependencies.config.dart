@@ -17,6 +17,7 @@ import 'package:injectable_sandbox/features/detail/detail_controller.dart'
     as _i7;
 import 'package:injectable_sandbox/features/home/home_controller.dart' as _i8;
 import 'package:injectable_sandbox/features/home/home_state.dart' as _i3;
+import 'package:injectable_sandbox/features/shared_module.dart' as _i9;
 import 'package:injectable_sandbox/features/shared_state.dart' as _i4;
 
 extension GetItInjectableX on _i1.GetIt {
@@ -30,8 +31,9 @@ extension GetItInjectableX on _i1.GetIt {
       environment,
       environmentFilter,
     );
+    final sharedModule = _$SharedModule();
     gh.factory<_i3.HomeState>(() => _i3.HomeState());
-    gh.lazySingleton<_i4.SharedState>(() => _i4.SharedState());
+    gh.lazySingleton<_i4.SharedState>(() => sharedModule.sharedState);
     gh.lazySingleton<_i5.ILocalStorage>(() => _i6.SharedPreferencesStorage());
     gh.factory<_i7.DetailController>(
         () => _i7.DetailController(gh<_i4.SharedState>()));
@@ -42,3 +44,5 @@ extension GetItInjectableX on _i1.GetIt {
     return this;
   }
 }
+
+class _$SharedModule extends _i9.SharedModule {}
