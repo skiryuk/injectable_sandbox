@@ -5,11 +5,11 @@ import 'package:injectable_sandbox/injection/configure_dependencies.dart';
 @module
 abstract class RegisterModule {
   SharedState get sharedState {
-    if (!getIt.isRegistered<SharedState>(
-        instanceName: getIt.currentScopeName)) {
+    final currScopeName = getIt.currentScopeName;
+    if (!getIt.isRegistered<SharedState>(instanceName: currScopeName)) {
       getIt.registerLazySingleton(() => SharedState(),
-          instanceName: getIt.currentScopeName);
+          instanceName: currScopeName);
     }
-    return getIt.get<SharedState>(instanceName: getIt.currentScopeName);
+    return getIt.get<SharedState>(instanceName: currScopeName);
   }
 }
