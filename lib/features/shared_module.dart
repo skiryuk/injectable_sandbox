@@ -7,6 +7,6 @@ final getItShared = GetIt.instance;
 
 @module
 abstract class SharedModule {
-  @lazySingleton
+  @LazySingleton(scope: 'shared')
   SharedState get sharedState => SharedState();
 }
