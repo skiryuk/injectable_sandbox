@@ -37,12 +37,8 @@ class _HomePageState extends State<HomePage> {
               CupertinoButton(
                   child: Text('to same home'),
                   onPressed: () async {
-                    final scopeName =
-                        'homeScope${DateTime.now().microsecondsSinceEpoch}';
-                    getIt.pushNewScope(scopeName: scopeName);
                     await Navigator.of(context)
                         .push(CupertinoPageRoute(builder: (_) => HomePage()));
-                    getIt.dropScope(scopeName);
                   }),
               CupertinoButton(
                   child: Text('Назад'),

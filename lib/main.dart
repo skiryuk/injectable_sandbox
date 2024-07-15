@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable_sandbox/features/home/home_page.dart';
+import 'package:injectable_sandbox/features/welcome/welcome_page.dart';
 
 import 'injection/configure_dependencies.dart';
 
@@ -16,7 +17,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const CupertinoApp(
-      home: HomePage(),
+      home: WelcomePage(),
     );
   }
 }
